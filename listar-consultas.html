@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Consultas</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos básicos */
+        #appointments {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Consultas Agendadas</h2>
+    <div id="appointments"></div>
+    <button onclick="window.location.href='painel-paciente.html'">Voltar</button>
+
+    <script>
+        // Função para carregar as consultas do LocalStorage
+        function loadAppointments() {
+            const appointmentsDiv = document.getElementById('appointments');
+            const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+
+            if (appointments.length === 0) {
+                appointmentsDiv.innerHTML = '<p>Nenhuma consulta agendada.</p>';
+            } else {
+                appointments.forEach(appointment => {
+                    const appointmentElement = document.createElement('p');
+                    appointmentElement.textContent = `Data: ${appointment.date}, Hora: ${appointment.time}`;
+                    appointmentsDiv.appendChild(appointmentElement);
+                });
+            }
+        }
+
+        // Carrega as consultas quando a página é aberta
+        loadAppointments();
+    </script>
+</body>
+</html>
